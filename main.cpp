@@ -3,6 +3,8 @@
 #include "Affichable.h"
 #include "Personnage.h"
 #include "Heros.h"
+#include "Vilain.h"
+#include "VilainHeros.h"
 #include <memory>
 #include <iostream>
 #include <string>
@@ -55,8 +57,14 @@ int main()
 	fichierVilains.exceptions(ios::failbit);
 
 	//TODO: Votre code pour le main commence ici
-	Personnage tintin("Tintin", "Les aventures de Tintin", 92);
+	Personnage tintin("Tintin", "Les aventures de Tintin", 0);
+	Personnage kung("Kung Fu Panda", "Les aventures de Tintin", 0);
+	tintin.changerCouleur(92);
+	Vilain kung_(kung, "Tuer Tintin");
 	vector<Personnage> allies = { tintin };
-	Heros tintin_(tintin, "Kung fu Panda", allies);
+	Heros tintin_(tintin, kung_.getVilain().getNom(), allies);
 	tintin_.afficher(cout);
+	VilainHeros vH(tintin_, kung_);
+
+	vH.afficher(cout);
 }
