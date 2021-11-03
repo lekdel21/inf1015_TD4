@@ -1,27 +1,27 @@
 #pragma once
 #include "Heros.h"
 #include "Vilain.h"
+#include "Personnage.h"
 
 class VilainHeros : public Heros, Vilain
 {
 public:
-	VilainHeros(const Heros& heros, const Vilain& vilain); 
+	VilainHeros(const Heros& heros, const Vilain& vilain) : Personnage(heros.getNom() + "-" + vilain.getNom(), heros.getJeu() + "-" + vilain.getJeu()), Heros("", "", heros.getEnnemi(), heros.getAllies()), Vilain("", "", vilain.getObjectif())
+	{
+		mission_ = vilain.getObjectif() + " dans le monde de " + heros.getJeu();
+	}
 	void afficher(ostream& os) const;
 private:
-	Personnage vilainHeros_;
 	string mission_;
 };
 
-VilainHeros::VilainHeros(const Heros& heros, const Vilain& vilain)
-{ 
-	vilainHeros_.setNom(heros.getHeros().getNom() + "-" + vilain.getVilain().getNom()); 
-	vilainHeros_.setJeu(heros.getHeros().getJeu() + "-" + vilain.getVilain().getJeu()); 
-	mission_ = vilain.getObjectif() + " dans le monde de " + heros.getHeros().getJeu(); 
-}
-
 void VilainHeros::afficher(ostream& os) const
 {
-	os << "Nom: " << vilainHeros_.getNom() << endl;
-	os << "Parution: " << vilainHeros_.getJeu() << endl;
+	Personnage::afficher(os);
+	os << "Allies: " << endl;
+	for (auto&& allie : getAllies())
+		os << allie << endl;
+	os << "Ennemi: " << getEnnemi() << endl;
+	os << "Objectif: " << getObjectif() << endl;
 	os << "Mission Speciale: " << mission_ << endl;
 }

@@ -57,14 +57,20 @@ int main()
 	fichierVilains.exceptions(ios::failbit);
 
 	//TODO: Votre code pour le main commence ici
-	Personnage tintin("Tintin", "Les aventures de Tintin", 0);
-	Personnage kung("Kung Fu Panda", "Les aventures de Tintin", 0);
-	tintin.changerCouleur(92);
-	Vilain kung_(kung, "Tuer Tintin");
-	vector<Personnage> allies = { tintin };
-	Heros tintin_(tintin, kung_.getVilain().getNom(), allies);
-	tintin_.afficher(cout);
-	VilainHeros vH(tintin_, kung_);
+	vector<string> allies = { "perso1", "perso2", "perso3" };
+	Vilain kung("Kung fu panda", "Les aventures de tintin", "Tuer Tintin");
+	Heros tintin("Tintin", "Les aventures de Tintin", "Kung Fu Panda", allies);
+	kung.changerCouleur(cout, 91);
+	kung.afficher(cout);
+	tintin.changerCouleur(cout, 92);
+	tintin.afficher(cout);
+	cout << "-------" << endl;
+	VilainHeros perso(tintin, kung);
+	perso.changerCouleur(cout, 0);
+	perso.afficher(cout);
+	//Heros tintin_(tintin, kung_.getVilain().getNom(), allies);
+	//tintin_.afficher(cout);
+	//VilainHeros vH(tintin_, kung_);
 
-	vH.afficher(cout);
+	//vH.afficher(cout);
 }

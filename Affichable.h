@@ -6,13 +6,8 @@ using namespace std;
 class Affichable
 {
 public:
-	Affichable() :couleur_(0) {}
-	Affichable(int couleur) { couleur_ = couleur; }
+	Affichable() = default;
 	virtual ~Affichable() = default;
 	virtual void afficher(ostream& os) const = 0;
-	virtual void changerCouleur(int couleur) = 0;
-	int getCouleur() const { return couleur_; }
-	void setCouleur(int couleur) { couleur_ = couleur; }
-private:
-	int couleur_;
+	virtual void changerCouleur(ostream& os, int couleur) = 0;
 };

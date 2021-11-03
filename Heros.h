@@ -4,27 +4,24 @@
 #include <string>
 #include <iostream>
 
-class Heros : public Personnage
+class Heros : public virtual Personnage
 {
 public:
 	Heros() = default;
-	Heros(const Personnage& heros, const string& ennemi, vector<Personnage> allies) : heros_(heros), allies_(allies), ennemi_(ennemi) {}
-	Heros(const Heros& heros) { heros_ = heros.heros_; allies_ = heros.allies_; ennemi_ = heros.ennemi_; }
+	Heros(const string& nom, const string& titreJeu, const string& ennemi, vector<string> allies) : Personnage(nom, titreJeu), allies_(allies), ennemi_(ennemi) {}
 	void afficher(ostream& os) const;
 
-	Personnage getHeros() const { return heros_; }
 	string getEnnemi() const { return ennemi_; }
-	vector<Personnage> getAllies() const { return allies_; }
+	vector<string> getAllies() const { return allies_; }
 private:
-	Personnage heros_;
-	vector<Personnage> allies_;
+	vector<string> allies_;
 	string ennemi_;
 };
 
 void Heros::afficher(ostream& os) const
 {
-	heros_.afficher(cout);
+	Personnage::afficher(cout);
 	os << "Ennemi: " << ennemi_ << endl << "Allies: " << endl;
 	for (auto&& allie : allies_)
-		os << allie.getNom() << endl;
+		os << allie << endl;
 }

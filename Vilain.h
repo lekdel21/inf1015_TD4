@@ -3,17 +3,14 @@
 #include <string>
 #include <iostream>
 
-class Vilain : public Personnage
+class Vilain : public virtual Personnage
 {
 public:
 	Vilain()=default;
-	Vilain(const Personnage& vilain, const string& objectif) : vilain_(vilain), objectif_(objectif) {}
-	Vilain(const Vilain& vilain) { vilain_ = vilain.vilain_; objectif_ = vilain.objectif_; }
-	void afficher(ostream& os) const { vilain_.afficher(cout); os << "Objectif: " << objectif_ << endl;}
+	Vilain(const string& nom, const string& titreJeu, const string& objectif) : Personnage(nom, titreJeu), objectif_(objectif) {}
+	void afficher(ostream& os) const { Personnage::afficher(os); os << "Objectif: " << objectif_ << endl;}
 
-	Personnage getVilain() const { return vilain_; }
 	string getObjectif() const { return objectif_; }
 private:
-	Personnage vilain_;
 	string objectif_;
 };
