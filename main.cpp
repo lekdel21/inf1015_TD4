@@ -57,20 +57,59 @@ int main()
 	fichierVilains.exceptions(ios::failbit);
 
 	//TODO: Votre code pour le main commence ici
-	vector<string> allies = { "perso1", "perso2", "perso3" };
-	Vilain kung("Kung fu panda", "Les aventures de tintin", "Tuer Tintin");
-	Heros tintin("Tintin", "Les aventures de Tintin", "Kung Fu Panda", allies);
-	kung.changerCouleur(cout, 91);
-	kung.afficher(cout);
-	tintin.changerCouleur(cout, 92);
-	tintin.afficher(cout);
-	cout << "-------" << endl;
-	VilainHeros perso(tintin, kung);
-	perso.changerCouleur(cout, 0);
+	vector<Heros> heros;
+	vector<Vilain> vilains;
+	vector<Personnage> personnages;
+	vector<vector<string>> allies;
+	int herosALire = lireUint16(fichierHeros);
+	for (int i = 0; i < herosALire; i++) {
+		string nomTemp = lireString(fichierHeros);
+		string jeauTemp = lireString(fichierHeros);
+		string ennemiTemp = lireString(fichierHeros);
+		int nbrTemporary = lireUint8(fichierHeros);
+		vector<string> alliesTemp;
+		for (int j = 0; j < nbrTemporary; j++) {
+			alliesTemp.push_back(lireString(fichierHeros));
+				}
+		allies.push_back(alliesTemp);
+		alliesTemp.clear();
+		heros.push_back(Heros(nomTemp,jeauTemp,ennemiTemp, allies[i]));
+		
+		
+	}
+	
+	int vilainsALire = lireUint16(fichierVilains);
+	for (int i = 0; i < herosALire; i++) {
+		string nomVilTemp = lireString(fichierVilains);
+		string jeauVilTemp = lireString(fichierVilains);
+		string objectif = lireString(fichierVilains);
+		vilains.push_back(Vilain(nomVilTemp, jeauVilTemp, objectif));
+	}
+	
+	for (int k = 0; k < heros.size(); k++) {
+		heros[k].changerCouleur(cout, 92);
+		heros[k].afficher(cout);
+		cout<< endl;
+		
+	}
+	cout << "------------------------------------------------------------------------------------------" << endl;
+	for (int k = 0; k < heros.size(); k++) {
+		vilains[k].changerCouleur(cout, 91);
+		vilains[k].afficher(cout);
+		cout << endl;
+		
+	}
+	for (int f=0; f < heros.size(); f++) {
+		personnages.push_back(heros[f]);
+		personnages.push_back(vilains[f]);
+	}
+	for (int l = 0; l < personnages.size(); l++) {
+		personnages[l].changerCouleur(cout, 0);
+		personnages[l].afficher(cout);
+	}
+	VilainHeros perso(heros[4], vilains[1]);
+	perso.changerCouleur(cout, 90);
 	perso.afficher(cout);
-	//Heros tintin_(tintin, kung_.getVilain().getNom(), allies);
-	//tintin_.afficher(cout);
-	//VilainHeros vH(tintin_, kung_);
+	personnages.push_back(perso);
 
-	//vH.afficher(cout);
 }
